@@ -1,206 +1,230 @@
-当然，以下是一个简洁且全面的 **README** 模板，适用于大多数开源项目，尤其是涉及智能合约或区块链相关项目时。你可以根据需要进行修改或扩展。
+### Foundry DeFi Stablecoin
+
+这是 Cyfrin Foundry Solidity 课程的一部分。
+
+- [DSCEngine 示例](https://sepolia.etherscan.io/address/0x091ea0838ebd5b7dda2f2a641b068d6d59639b98#code)
+- [去中心化稳定币示例](https://sepolia.etherscan.io/address/0xf30021646269007b0bdc0763fd736c6380602f2f#code)
 
 ---
 
-# 项目名称
-
-> 项目简要描述，包括目标、功能、特点等。
-
-## 目录
-
-1. [简介](#简介)
-2. [安装与部署](#安装与部署)
-3. [使用指南](#使用指南)
-4. [API 文档](#API文档)
-5. [贡献](#贡献)
-6. [许可证](#许可证)
-7. [联系方式](#联系方式)
-
-## 简介
-
-> 这个项目是一个用于稳定币系统的智能合约,里面分别有质押，锻造，赎回，燃烧和清算五大功能
-
-## 安装与部署
-
-说明如何在本地或服务器上安装、配置并运行这个项目。如果是一个智能合约项目，可以包括如何部署到区块链网络的步骤。
-
-### 先决条件
-
-列出项目运行所需的环境或工具（例如 Node.js、Solidity 编译器、Truffle、Hardhat 等）。
-
-示例：
-
-- Node.js v14+
-- Solidity v0.8.x
-- FUNDARY
-
-### 安装
-
-1. 克隆代码库：
-
-   ```bash
-   git clone https://github.com/your-username/project-name.git
-   cd project-name
-   ```
-
-2. 安装依赖项：
-
-   ```bash
-   npm install
-   ```
-
-### 部署到区块链
-
-假设你使用 Truffle 或 Hardhat，可以提供一个简短的部署步骤：
-
-#### 使用 Truffle 部署：
-
-1. 在 `truffle-config.js` 中配置网络设置（例如，Rinkeby、主网等）。
-2. 部署智能合约：
-
-   ```bash
-   truffle migrate --network rinkeby
-   ```
-
-#### 使用 Hardhat 部署：
-
-1. 配置 `hardhat.config.js` 中的网络设置。
-2. 部署合约：
-
-   ```bash
-   npx hardhat run scripts/deploy.js --network rinkeby
-   ```
-
-### 测试
-
-运行测试以确保所有功能正常工作：
-
-```bash
-npm test
-```
-
-或使用 Truffle / Hardhat 自带的测试框架：
-
-```bash
-truffle test
-```
-
-## 使用指南
-
-简要说明如何在项目中使用这些智能合约或相关功能。包括如何调用主要功能、API 端点等。
-
-示例：
-
-### 使用合约功能
-
-1. **获取最新价格数据：**
-
-   调用 `getLatestPrice()` 方法：
-
-   ```javascript
-   const price = await priceFeed.getLatestPrice();
-   console.log(price);
-   ```
-
-2. **冻结机制：**
-
-   如果价格数据陈旧，可以调用 `freeze()` 方法：
-
-   ```javascript
-   if (priceData.isStale()) {
-     contract.freeze();
-   }
-   ```
-
-### 示例
-
-提供一个简单的示例，展示如何与合约交互。
-
-```javascript
-const contract = await ethers.getContractAt("YourContract", contractAddress);
-await contract.someFunction(arg1, arg2);
-```
-
-## API 文档
-
-如果项目中有公开的 API 或暴露的智能合约方法，可以在这里列出并解释每个方法的作用、参数和返回值。
-
-示例：
-
-### `staleCheckLatestRoundData`
-
-检查预言机数据是否过时，返回最新的价格和状态。
-
-```solidity
-function staleCheckLatestRoundData(AggregatorV3Interface chainlinkFeed) public view returns (uint80, int256, uint256, uint256, uint80);
-```
-
-- **参数**：`chainlinkFeed` — Chainlink 预言机接口
-- **返回值**：
-  - `roundId`：价格数据的轮次 ID
-  - `answer`：价格数据（int256）
-  - `startedAt`：数据开始时间戳
-  - `updatedAt`：数据更新时间戳
-  - `answeredInRound`：数据回答所在的轮次
-
-## 贡献
-
-如果你希望为项目做出贡献，可以在这里简要说明如何进行贡献。
-
-1. Fork 这个仓库。
-2. 创建一个新的分支：
-
-   ```bash
-   git checkout -b feature-name
-   ```
-
-3. 提交你的更改：
-
-   ```bash
-   git commit -am 'Add new feature'
-   ```
-
-4. 推送到远程仓库：
-
-   ```bash
-   git push origin feature-name
-   ```
-
-5. 提交 Pull Request。
-
-## 许可证
-
-简要说明项目的许可证信息。
-
-示例：
-
-> 该项目采用 MIT 许可证。有关更多信息，请参见 [LICENSE](./LICENSE) 文件。
-
-## 联系方式
-
-如果有任何问题或建议，可以通过以下方式联系作者或维护者：
-
-- **邮件**：your.email@example.com
-- **GitHub**：[https://github.com/your-username](https://github.com/your-username)
+### 关于
+
+这个项目是一个稳定币系统，用户可以存入 WETH 和 WBTC，交换一个与 USD 锚定的代币。
+
+- [Foundry DeFi Stablecoin](#foundry-defi-stablecoin)
+- [关于](#about)
+- [快速开始](#getting-started)
+  - [要求](#requirements)
+  - [快速启动](#quickstart)
+  - [可选 Gitpod](#optional-gitpod)
+- [更新](#updates)
+- [使用](#usage)
+  - [启动本地节点](#start-a-local-node)
+  - [部署](#deploy)
+  - [其他网络部署](#deploy---other-network)
+  - [测试](#testing)
+    - [测试覆盖率](#test-coverage)
+- [部署到测试网或主网](#deployment-to-a-testnet-or-mainnet)
+  - [脚本](#scripts)
+  - [估算 Gas](#estimate-gas)
+- [代码格式化](#formatting)
+- [Slither](#slither)
+- [附加信息](#additional-info)
+  - [关于“官方”是什么意思](#lets-talk-about-what-official-means)
+  - [总结](#summary)
+- [感谢](#thank-you)
 
 ---
 
-这个模板是一个通用的 README 模板，涵盖了项目的基本信息、安装、使用、API 说明和贡献等内容。你可以根据项目的实际需求进一步调整和扩展它。
+### 快速开始
 
-### 大纲：
+#### 要求
 
+- [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+  - 确保可以运行 `git --version`，并且能够看到类似 `git version x.x.x` 的响应。
+- [foundry](https://getfoundry.sh/)
+  - 确保可以运行 `forge --version`，并且能够看到类似 `forge 0.2.0 (816e00b 2023-03-16T00:05:26.396218Z)` 的响应。
+
+#### 快速启动
+
+```bash
+git clone https://github.com/Cyfrin/foundry-defi-stablecoin-cucd foundry-defi-stablecoin-cu
+forge build
 ```
-1.(相对稳定) Anchored or Pegged => $1.00{
-    1.chainlink price feed
-    2.set function exchange eth & btc =>$$$
-}
-译文：锚定，挂钩 1 美元
 
-2.stable mechanism(minting) :Algorithmic(decentalized){
-    1.people can only mint stablecoin with enough collateral
-}
-译文：稳定的机制去铸造：使用去中心化算法
+#### 可选 Gitpod
 
-3.collateral:Exogenous(crypto)=> btc,eth
-译文：抵押物：外生的（加密货币）,使用 btc 和 eth
+如果你不能或不想在本地安装和运行，可以选择在 Gitpod 上使用这个仓库。这样，你可以跳过 `clone this repo` 部分。
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#github.com/PatrickAlphaC/foundry-smart-contract-lottery-cu)
+
+---
+
+### 更新
+
+- 最新版本的 `openzeppelin-contracts` 在 `ERC20Mock` 文件中有一些更改。为了跟随课程，您需要安装版本 4.8.3，可以通过以下命令安装：
+
+  ```bash
+  forge install openzeppelin/openzeppelin-contracts@v4.8.3 --no-commit
+  ```
+
+  而不是：
+
+  ```bash
+  forge install openzeppelin/openzeppelin-contracts --no-commit
+  ```
+
+---
+
+### 使用
+
+#### 启动本地节点
+
+```bash
+make anvil
 ```
+
+#### 部署
+
+这将默认部署到本地节点。你需要在另一个终端窗口运行该节点，以便它能够进行部署。
+
+```bash
+make deploy
+```
+
+#### 其他网络部署
+
+[查看下面的测试网或主网部署说明](#deployment-to-a-testnet-or-mainnet)
+
+#### 测试
+
+我们在视频中讲解了 4 个测试层级：
+
+1. 单元测试
+2. 集成测试
+3. 分叉测试
+4. 阶段测试
+
+在本仓库中，我们覆盖了第 1 类单元测试和模糊测试。
+
+```bash
+forge test
+```
+
+##### 测试覆盖率
+
+```bash
+forge coverage
+```
+
+覆盖率测试：
+
+```bash
+forge coverage --report debug
+```
+
+---
+
+### 部署到测试网或主网
+
+1. **设置环境变量**  
+   你需要将 `SEPOLIA_RPC_URL` 和 `PRIVATE_KEY` 设置为环境变量。你可以将它们添加到 `.env` 文件中，格式与 `.env.example` 相似。
+
+   - `PRIVATE_KEY`: 你的账户私钥（例如从 [MetaMask](https://metamask.io/)）。**注意：开发时请使用一个没有真实资金的账户私钥**。
+     - [如何导出私钥](https://metamask.zendesk.com/hc/en-us/articles/360015289632-How-to-Export-an-Account-Private-Key)
+   - `SEPOLIA_RPC_URL`: 这是你使用的 Sepolia 测试网节点的 URL。你可以从 [Alchemy](https://alchemy.com/?a=673c802981) 免费获得一个。
+   - 可选：如果你想在 [Etherscan](https://etherscan.io/) 上验证你的合约，可以添加 `ETHERSCAN_API_KEY`。
+
+2. **获取测试网 ETH**  
+   访问 [faucets.chain.link](https://faucets.chain.link/) 获取一些测试网 ETH，并确保它们出现在你的 MetaMask 中。
+
+3. **部署**
+
+```bash
+make deploy ARGS="--network sepolia"
+```
+
+---
+
+### 脚本
+
+你可以直接使用 `cast` 命令与合约交互，而不需要编写单独的脚本。
+
+例如，在 Sepolia 测试网上：
+
+1. **获取 WETH**
+
+```bash
+cast send 0xdd13E55209Fd76AfE204dBda4007C227904f0a81 "deposit()" --value 0.1ether --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY
+```
+
+2. **批准 WETH**
+
+```bash
+cast send 0xdd13E55209Fd76AfE204dBda4007C227904f0a81 "approve(address,uint256)" 0x091EA0838eBD5b7ddA2F2A641B068d6D59639b98 1000000000000000000 --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY
+```
+
+3. **存入并铸造 DSC**
+
+```bash
+cast send 0x091EA0838eBD5b7ddA2F2A641B068d6D59639b98 "depositCollateralAndMintDsc(address,uint256,uint256)" 0xdd13E55209Fd76AfE204dBda4007C227904f0a81 100000000000000000 10000000000000000 --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY
+```
+
+---
+
+### 估算 Gas
+
+你可以通过运行以下命令来估算 Gas 消耗：
+
+```bash
+forge snapshot
+```
+
+你将看到一个名为 `.gas-snapshot` 的输出文件。
+
+---
+
+### 代码格式化
+
+运行代码格式化：
+
+```bash
+forge fmt
+```
+
+---
+
+### Slither
+
+```bash
+slither . --config-file slither.config.json
+```
+
+---
+
+### 附加信息
+
+一些用户曾经困惑 `Chainlink-brownie-contracts` 是否为官方的 Chainlink 仓库。以下是相关信息：
+
+`Chainlink-brownie-contracts` 是官方的仓库。该仓库由 Chainlink 团队拥有和维护，且会按照正式的 Chainlink 发布流程进行发布。你可以看到它仍然位于 `smartcontractkit` 组织下。
+
+[Chainlink-brownie-contracts GitHub 仓库](https://github.com/smartcontractkit/chainlink-brownie-contracts)
+
+#### 关于“官方”是什么意思
+
+“官方”发布流程是 Chainlink 将其包发布到 [npm](https://www.npmjs.com/package/@chainlink/contracts)。因此，直接从 `smartcontractkit/chainlink` 下载是错误的，因为它可能包含未发布的代码。
+
+因此，你有两个选择：
+
+1. 从 NPM 下载并将其作为 Foundry 的外部依赖。
+2. 从 `chainlink-brownie-contracts` 仓库下载，它已经从 NPM 下载并将其打包，便于你在 Foundry 中使用。
+
+---
+
+### 总结
+
+1. `chainlink-brownie-contracts` 是由 Chainlink 团队维护的官方仓库。
+2. 它会按照 Chainlink 的正式发布周期（使用 npm）进行打包，便于在 Foundry 中使用。
+
+---
+
